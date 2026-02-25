@@ -109,7 +109,7 @@ const AboutSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* ── Image side ── */}
-          <div ref={imageRef} className="relative" style={slideIn(0, imageVisible, -60, 30)}>
+          <div ref={imageRef} className="relative order-2 lg:order-1" style={slideIn(0, imageVisible, -60, 30)}>
             <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 rounded-2xl blur-xl" />
             <div className="relative rounded-2xl overflow-hidden transition-transform duration-700 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
               <img
@@ -120,7 +120,7 @@ const AboutSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
             </div>
             <div
-              className="absolute -top-4 -right-4 badge-sticker text-secondary border-secondary text-base animate-pulse-glow"
+              className="absolute -top-4 right-2 sm:-right-4 badge-sticker text-secondary border-secondary text-base animate-pulse-glow"
               style={popIn(350, imageVisible)}
             >
               SUPERNOVA
@@ -128,7 +128,7 @@ const AboutSection = () => {
           </div>
 
           {/* ── Text side — observed independently ── */}
-          <div ref={textRef} className="flex flex-col">
+          <div ref={textRef} className="flex flex-col order-1 lg:order-2">
 
             {/* Badge */}
             <div style={slideIn(0, textVisible, 40, 0)}>

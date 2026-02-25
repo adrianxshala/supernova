@@ -29,7 +29,7 @@ const Navbar = () => {
           href="#tour-dates"
           className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-body font-bold text-sm uppercase tracking-wider hover:shadow-neon-pink transition-all duration-300"
         >
-          Tickets
+          Dafina Zeqiri
         </a>
       </div>
     </nav>
