@@ -123,6 +123,8 @@ const CTASection = () => {
               animation: `marquee ${DURATION} linear infinite`,
               gap: "80px",
               paddingRight: "80px",
+              willChange: "transform",
+              transform: "translateZ(0)",
             }}
           >
             {[...sponsors, ...sponsors, ...sponsors].map((s, i) => (
@@ -130,7 +132,8 @@ const CTASection = () => {
                 key={i}
                 src={s.src}
                 alt={s.alt}
-                className={`${s.height} w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-default shrink-0`}
+                className={`${s.height} w-auto object-contain shrink-0`}
+                style={{ opacity: 0.85, transform: "translateZ(0)" }}
                 draggable={false}
               />
             ))}

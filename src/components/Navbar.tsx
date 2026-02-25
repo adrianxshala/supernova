@@ -19,7 +19,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <img src={logo} alt="Supernova Show Tour" className="h-8 md:h-10" />
+        <img src={logo} alt="Supernova Show Tour" className="h-9 md:h-11" />
         <div className="hidden md:flex items-center gap-8 font-body text-sm uppercase tracking-wider">
           <a href="#tour-dates" className="text-muted-foreground hover:text-foreground transition-colors">Dates</a>
           <a href="#gallery" className="text-muted-foreground hover:text-foreground transition-colors">Gallery</a>
