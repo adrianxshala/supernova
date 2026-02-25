@@ -20,16 +20,6 @@ const Index = () => {
         <AboutSection />
       </div>
       <CTASection />
-
-      {/* Sticky mobile CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/90 backdrop-blur-xl border-t border-border md:hidden z-50">
-        <a
-          href="#tour-dates"
-          className="block w-full py-3 text-center rounded-full bg-primary text-primary-foreground font-body font-bold uppercase tracking-wider shadow-neon-pink"
-        >
-          Get Tickets
-        </a>
-      </div>
     </main>
   );
 };

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo2.jpeg";
 
 const FloatingShape = ({ className, delay = "0s" }: { className?: string; delay?: string }) => (
   <div
@@ -49,34 +49,53 @@ const HeroSection = () => {
         <img
           src={logo}
           alt="Supernova Show Tour"
-          className="w-48 md:w-64 mx-auto mb-6 drop-shadow-2xl"
+          className="w-40 md:w-52 mx-auto mb-6 drop-shadow-2xl animate-slide-up"
+          style={{ animationDelay: "0.05s" }}
         />
 
         {/* Sticker badges */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          <span className="badge-sticker text-primary border-primary">LIVE 2026</span>
-          <span className="badge-sticker text-lime border-lime">SUMMER TOUR</span>
-          <span className="badge-sticker text-secondary border-secondary" style={{ transform: "rotate(3deg)" }}>LIMITED DATES</span>
+        <div className="flex flex-wrap justify-center gap-3 mb-8 animate-slide-down-soft" style={{ animationDelay: "0.12s" }}>
+          <span className="badge-sticker text-primary border-primary animate-pulse-glow" style={{ animationDelay: "0.3s" }}>
+            LIVE 2026
+          </span>
+          <span className="badge-sticker text-lime border-lime animate-pulse-glow" style={{ animationDelay: "0.6s" }}>
+            SUMMER TOUR
+          </span>
+          <span
+            className="badge-sticker text-secondary border-secondary animate-pulse-glow"
+            style={{ transform: "rotate(3deg)", animationDelay: "0.9s" }}
+          >
+            LIMITED DATES
+          </span>
         </div>
 
         {/* Main headline */}
-        <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] leading-[0.85] mb-6 tracking-tight">
-          <span className="text-gradient-festival">SUMMER</span>
+        <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] leading-[0.85] mb-6 tracking-tight animate-headline-pop">
+          <span className="text-gradient-festival animate-blur-in drop-shadow-[0_0_32px_rgba(255,255,255,0.35)]">
+            GERMANY
+          </span>
           <br />
-          <span className="text-foreground">TOUR 2026</span>
+          <span className="text-foreground animate-text-shuffle">TOUR 2026</span>
         </h1>
 
-        {/* Subheadline */}
+        {/* Subheadline with typewriter effect */}
         <p className="font-body text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto mb-10 tracking-wide">
-          Feel the Energy. Live the Moment.
+          <span className="inline-block overflow-hidden whitespace-nowrap border-r-2 border-foreground animate-typewriter">
+            Feel the Energy. Live the Moment.
+          </span>
         </p>
 
         {/* CTA */}
         <a
-          href="#tour-dates"
-          className="inline-block px-10 py-5 text-lg font-bold uppercase tracking-wider rounded-full bg-primary text-primary-foreground shadow-neon-pink hover:scale-105 transition-all duration-300 hover:shadow-[0_0_50px_hsl(342,95%,59%/0.6)] font-body"
+          href="https://dafinazeqiri.tickets/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Get tickets on dafinazeqiri.tickets"
+          title="Get tickets on dafinazeqiri.tickets"
+          className="inline-block px-12 py-6 text-xl font-bold uppercase tracking-wider rounded-full bg-gradient-festival text-foreground shadow-neon-pink hover:scale-110 transition-all duration-300 hover:shadow-[0_0_60px_hsl(342,95%,59%/0.5)] font-body animate-headline-pop"
+          style={{ animationDelay: "0.6s" }}
         >
-          View Tour Dates
+          Get Tickets
         </a>
       </div>
 

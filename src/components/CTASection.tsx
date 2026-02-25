@@ -1,7 +1,37 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
+
+function useInView(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setInView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return { ref, inView };
+}
 
 const CTASection = () => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement | null>(null);
+  const { ref: contentRef, inView } = useInView(0.15);
+
+  const slide = (delay: number) => ({
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateY(0) scale(1)" : "translateY(60px) scale(0.95)",
+    transition: `opacity 0.9s cubic-bezier(0.22,1,0.36,1) ${delay}ms,
+                 transform 0.9s cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
+    willChange: "transform, opacity",
+  });
 
   const createConfetti = useCallback(() => {
     const container = buttonRef.current?.parentElement;
@@ -27,7 +57,6 @@ const CTASection = () => {
         pointer-events: none;
         z-index: 50;
       `;
-
       container.style.position = "relative";
       container.appendChild(confetti);
 
@@ -35,7 +64,6 @@ const CTASection = () => {
       const velocity = Math.random() * 200 + 100;
       const vx = Math.cos(angle) * velocity;
       const vy = Math.sin(angle) * velocity - 100;
-
       let x = 0, y = 0, opacity = 1;
       const startTime = performance.now();
 
@@ -69,25 +97,52 @@ const CTASection = () => {
       <div className="absolute top-10 left-[10%] w-20 h-20 rounded-full bg-primary/20 blur-2xl animate-float" />
       <div className="absolute bottom-10 right-[15%] w-32 h-32 rounded-full bg-accent/15 blur-3xl animate-float-reverse" />
 
-      <div className="relative z-10 text-center max-w-4xl mx-auto">
-        <h2 className="font-display text-6xl sm:text-8xl md:text-9xl text-foreground leading-[0.85] mb-4">
+      {/* Content */}
+      <div ref={contentRef} className="relative z-10 text-center max-w-4xl mx-auto">
+
+        {/* "DON'T MISS" */}
+        <div
+          className="font-display text-6xl sm:text-8xl md:text-9xl text-foreground leading-[0.85] mb-4"
+          style={slide(0)}
+        >
           DON'T MISS
-          <br />
+        </div>
+
+        {/* "THE SHOW" */}
+        <div
+          className="font-display text-6xl sm:text-8xl md:text-9xl leading-[0.85] mb-8"
+          style={slide(130)}
+        >
           <span className="text-gradient-festival">THE SHOW</span>
-        </h2>
-        <p className="font-body text-xl text-muted-foreground mb-12 max-w-lg mx-auto">
+        </div>
+
+        {/* Subtitle */}
+        <p
+          className="font-body text-xl text-muted-foreground mb-12 max-w-lg mx-auto"
+          style={slide(260)}
+        >
           Tickets are selling fast. Secure your spot at the biggest tour of 2026.
         </p>
 
-        <div className="relative inline-block">
-          <button
-            ref={buttonRef}
+        {/* Button */}
+        <div
+          className="relative inline-block"
+          style={slide(380)}
+        >
+          <a
+            ref={buttonRef as React.RefObject<HTMLAnchorElement>}
             onMouseEnter={createConfetti}
-            className="px-12 py-6 text-xl font-bold uppercase tracking-wider rounded-full bg-gradient-festival text-foreground shadow-neon-pink hover:scale-110 transition-all duration-300 hover:shadow-[0_0_60px_hsl(342,95%,59%/0.5)] font-body"
+            href="https://dafinazeqiri.tickets/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Get tickets now on dafinazeqiri.tickets"
+            title="Get tickets now on dafinazeqiri.tickets"
+            className="inline-block px-12 py-6 text-xl font-bold uppercase tracking-wider rounded-full bg-gradient-festival text-foreground shadow-neon-pink hover:scale-110 transition-all duration-300 hover:shadow-[0_0_60px_hsl(342,95%,59%/0.5)] font-body"
           >
             Get Tickets Now
-          </button>
+          </a>
         </div>
+
       </div>
     </section>
   );
