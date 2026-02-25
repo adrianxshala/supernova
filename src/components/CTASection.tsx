@@ -1,4 +1,17 @@
 import { useRef, useCallback, useEffect, useState } from "react";
+import hyatt from "@/assets/hyatt.png";
+import lamborghini from "@/assets/lamborgini.png";
+import mercedes from "@/assets/mercedes.png";
+import redbull from "@/assets/redbull.png";
+
+const sponsors = [
+  { src: hyatt,       alt: "Hyatt",         height: "h-10" },
+  { src: lamborghini, alt: "Lamborghini",    height: "h-10" },
+  { src: mercedes,    alt: "Mercedes-Benz", height: "h-24" },
+  { src: redbull,     alt: "Red Bull",      height: "h-10" },
+];
+
+const DURATION = "9.6s";
 
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,14 +49,12 @@ const CTASection = () => {
   const createConfetti = useCallback(() => {
     const container = buttonRef.current?.parentElement;
     if (!container) return;
-
     const colors = [
       "hsl(342, 95%, 59%)",
       "hsl(27, 100%, 50%)",
       "hsl(190, 100%, 50%)",
       "hsl(72, 100%, 50%)",
     ];
-
     for (let i = 0; i < 30; i++) {
       const confetti = document.createElement("div");
       confetti.style.cssText = `
@@ -59,14 +70,12 @@ const CTASection = () => {
       `;
       container.style.position = "relative";
       container.appendChild(confetti);
-
       const angle = Math.random() * Math.PI * 2;
       const velocity = Math.random() * 200 + 100;
       const vx = Math.cos(angle) * velocity;
       const vy = Math.sin(angle) * velocity - 100;
       let x = 0, y = 0, opacity = 1;
       const startTime = performance.now();
-
       const animate = (time: number) => {
         const elapsed = (time - startTime) / 1000;
         x = vx * elapsed;
@@ -82,8 +91,8 @@ const CTASection = () => {
   }, []);
 
   return (
-    <section className="relative py-32 px-4 overflow-hidden">
-      {/* Animated gradient background */}
+    <section className="relative overflow-hidden">
+      {/* Shared animated gradient background */}
       <div
         className="absolute inset-0 animate-gradient-shift"
         style={{
@@ -97,38 +106,54 @@ const CTASection = () => {
       <div className="absolute top-10 left-[10%] w-20 h-20 rounded-full bg-primary/20 blur-2xl animate-float" />
       <div className="absolute bottom-10 right-[15%] w-32 h-32 rounded-full bg-accent/15 blur-3xl animate-float-reverse" />
 
-      {/* Content */}
-      <div ref={contentRef} className="relative z-10 text-center max-w-4xl mx-auto">
+      {/* ── Sponsors marquee ── */}
+      <div className="relative z-10 pt-4 pb-2 border-b border-white/10">
+        {/* Fade masks */}
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-transparent to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-transparent to-transparent z-10 pointer-events-none" />
 
-        {/* "DON'T MISS" */}
-        <div
-          className="font-display text-6xl sm:text-8xl md:text-9xl text-foreground leading-[0.85] mb-4"
-          style={slide(0)}
-        >
+        <p className="text-center font-body text-xs uppercase tracking-[0.25em] text-white/40 mb-6">
+          Official Partners
+        </p>
+
+        <div className="flex overflow-hidden">
+          <div
+            className="flex shrink-0 items-center"
+            style={{
+              animation: `marquee ${DURATION} linear infinite`,
+              gap: "80px",
+              paddingRight: "80px",
+            }}
+          >
+            {[...sponsors, ...sponsors, ...sponsors].map((s, i) => (
+              <img
+                key={i}
+                src={s.src}
+                alt={s.alt}
+                className={`${s.height} w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-default shrink-0`}
+                draggable={false}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── CTA content ── */}
+      <div ref={contentRef} className="relative z-10 text-center max-w-4xl mx-auto py-32 px-4">
+
+        <div className="font-display text-6xl sm:text-8xl md:text-9xl text-foreground leading-[0.85] mb-4" style={slide(0)}>
           DON'T MISS
         </div>
 
-        {/* "THE SHOW" */}
-        <div
-          className="font-display text-6xl sm:text-8xl md:text-9xl leading-[0.85] mb-8"
-          style={slide(130)}
-        >
+        <div className="font-display text-6xl sm:text-8xl md:text-9xl leading-[0.85] mb-8" style={slide(130)}>
           <span className="text-gradient-festival">THE SHOW</span>
         </div>
 
-        {/* Subtitle */}
-        <p
-          className="font-body text-xl text-muted-foreground mb-12 max-w-lg mx-auto"
-          style={slide(260)}
-        >
+        <p className="font-body text-xl text-muted-foreground mb-12 max-w-lg mx-auto" style={slide(260)}>
           Tickets are selling fast. Secure your spot at the biggest tour of 2026.
         </p>
 
-        {/* Button */}
-        <div
-          className="relative inline-block"
-          style={slide(380)}
-        >
+        <div className="relative inline-block" style={slide(380)}>
           <a
             ref={buttonRef as React.RefObject<HTMLAnchorElement>}
             onMouseEnter={createConfetti}
@@ -144,6 +169,13 @@ const CTASection = () => {
         </div>
 
       </div>
+
+      <style>{`
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(calc(-100% / 3)); }
+        }
+      `}</style>
     </section>
   );
 };

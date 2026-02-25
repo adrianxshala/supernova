@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import logo from "@/assets/logo2.jpeg";
 
 const FloatingShape = ({ className, delay = "0s" }: { className?: string; delay?: string }) => (
   <div
@@ -45,30 +44,6 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-        {/* Logo */}
-        <img
-          src={logo}
-          alt="Supernova Show Tour"
-          className="w-40 md:w-52 mx-auto mb-6 drop-shadow-2xl animate-slide-up"
-          style={{ animationDelay: "0.05s" }}
-        />
-
-        {/* Sticker badges */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8 animate-slide-down-soft" style={{ animationDelay: "0.12s" }}>
-          <span className="badge-sticker text-primary border-primary animate-pulse-glow" style={{ animationDelay: "0.3s" }}>
-            LIVE 2026
-          </span>
-          <span className="badge-sticker text-lime border-lime animate-pulse-glow" style={{ animationDelay: "0.6s" }}>
-            SUMMER TOUR
-          </span>
-          <span
-            className="badge-sticker text-secondary border-secondary animate-pulse-glow"
-            style={{ transform: "rotate(3deg)", animationDelay: "0.9s" }}
-          >
-            LIMITED DATES
-          </span>
-        </div>
-
         {/* Main headline */}
         <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] leading-[0.85] mb-6 tracking-tight animate-headline-pop">
           <span className="text-gradient-festival animate-blur-in drop-shadow-[0_0_32px_rgba(255,255,255,0.35)]">
