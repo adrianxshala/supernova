@@ -45,12 +45,26 @@ const HeroSection = () => {
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         {/* Main headline */}
-        <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] leading-[0.85] mb-6 tracking-tight animate-headline-pop">
-          <span className="text-gradient-festival animate-blur-in drop-shadow-[0_0_32px_rgba(255,255,255,0.35)]">
+        <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] leading-[0.85] mb-6 tracking-tight">
+          <span
+            className="text-gradient-festival drop-shadow-[0_0_32px_rgba(255,255,255,0.35)] inline-block"
+            style={{
+              animation: "slideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s both",
+              willChange: "transform, opacity",
+            }}
+          >
             GERMANY
           </span>
           <br />
-          <span className="text-foreground animate-text-shuffle">TOUR 2026</span>
+          <span
+            className="text-foreground inline-block"
+            style={{
+              animation: "slideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s both",
+              willChange: "transform, opacity",
+            }}
+          >
+            TOUR 2026
+          </span>
         </h1>
 
         {/* Subheadline with typewriter effect */}
@@ -76,6 +90,13 @@ const HeroSection = () => {
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
+
+      <style>{`
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(48px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 };

@@ -117,25 +117,28 @@ const CTASection = () => {
         </p>
 
         <div className="flex overflow-hidden">
+          {/* Outer track animates -50% = exactly one set width → perfectly seamless */}
           <div
-            className="flex shrink-0 items-center"
-            style={{
-              animation: `marquee ${DURATION} linear infinite`,
-              gap: "80px",
-              paddingRight: "80px",
-              willChange: "transform",
-              transform: "translateZ(0)",
-            }}
+            className="flex shrink-0"
+            style={{ animation: `marquee ${DURATION} linear infinite`, willChange: "transform" }}
           >
-            {[...sponsors, ...sponsors, ...sponsors].map((s, i) => (
-              <img
-                key={i}
-                src={s.src}
-                alt={s.alt}
-                className={`${s.height} w-auto object-contain shrink-0`}
-                style={{ opacity: 0.85, transform: "translateZ(0)" }}
-                draggable={false}
-              />
+            {[0, 1].map((set) => (
+              <div
+                key={set}
+                className="flex shrink-0 items-center"
+                style={{ gap: "80px", paddingRight: "80px" }}
+              >
+                {sponsors.map((s, i) => (
+                  <img
+                    key={i}
+                    src={s.src}
+                    alt={s.alt}
+                    className={`${s.height} w-auto object-contain shrink-0`}
+                    style={{ opacity: 0.85 }}
+                    draggable={false}
+                  />
+                ))}
+              </div>
             ))}
           </div>
         </div>
@@ -176,7 +179,7 @@ const CTASection = () => {
       <style>{`
         @keyframes marquee {
           from { transform: translateX(0); }
-          to   { transform: translateX(calc(-100% / 3)); }
+          to   { transform: translateX(-50%); }
         }
       `}</style>
     </section>
